@@ -1,1 +1,7 @@
-[]
+[
+  {
+    "id": "1",
+    "title": "Test note",
+    "content": "This note was written using writeData utility"
+  }
+]

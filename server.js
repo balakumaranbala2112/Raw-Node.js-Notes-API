@@ -1,9 +1,15 @@
 const http = require("node:http");
+const path = require("node:path");
+
 const sendJson = require("./utils/sendJson");
+const readData = require("./utils/readData");
+const writeData = require("./utils/writeData");
 
 const PORT = 3000;
 
-const server = http.createServer((req, res) => {
+const notesFilePath = path.join(__dirname, "data", "notes.json");
+
+const server = http.createServer(async (req, res) => {
   const requestUrl = new URL(req.url, `http://${req.headers.host}`);
 
   const method = req.method;
@@ -18,6 +24,31 @@ const server = http.createServer((req, res) => {
   if (method === "GET" && pathname === "/health") {
     return sendJson(res, 200, {
       status: "OK",
+    });
+  }
+
+  if (method === "GET" && pathname === "/test-read") {
+    const notes = await readData(notesFilePath);
+
+    return sendJson(res, 200, {
+      message: "Notes file read successfully",
+      data: notes,
+    });
+  }
+
+  if (method === "GET" && pathname === "/test-write") {
+    const sampleNotes = [
+      {
+        id: "1",
+        title: "Test note",
+        content: "This note was written using writeData utility",
+      },
+    ];
+
+    await writeData(notesFilePath, sampleNotes);
+
+    return sendJson(res, 200, {
+      message: "Notes file written successfully",
     });
   }
 
