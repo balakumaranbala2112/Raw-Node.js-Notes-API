@@ -22,10 +22,10 @@ const server = http.createServer((req, res) => {
   }
 
   return sendJson(res, 404, {
-    message: "Route Not Found",
+    message: "Route not found",
   });
 });
 
 server.listen(PORT, () => {
-  `Server is running on http://localhost:${PORT}`;
+  console.log(`Server running on http://localhost:${PORT}`);
 });
