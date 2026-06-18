@@ -9,13 +9,19 @@ async function jsonBody(req, res, next) {
   }
 
   const contentType = req.headers["content-type"] || "";
+
   console.log("Content-Type:", contentType);
 
   if (!contentType.includes("application/json")) {
     return next(createHttpError(415, "Content-Type must be application/json"));
   }
 
-  req.body = await parseJsonBody(req);
+  try {
+    req.body = await parseJsonBody(req);
+  } catch (err) {
+    return next(err);
+  }
+
   console.log("Parsed body:", req.body);
 
   next();

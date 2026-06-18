@@ -1,12 +1,5 @@
 [
   {
-    "id": "1",
-    "title": "Learn raw Node.js",
-    "content": "Today I connected notesDb helpers.",
-    "createdAt": "2026-06-18T09:41:34.933Z",
-    "updatedAt": "2026-06-18T09:41:34.933Z"
-  },
-  {
     "id": "2",
     "title": "Understand Express Middleware",
     "content": "Wrote a custom logger middleware to track incoming API requests and response times.",
@@ -61,5 +54,12 @@
     "content": "Set up Nginx as a reverse proxy, installed SSL certificates with Certbot, and used PM2 to keep the Node process running continuously.",
     "createdAt": "2026-06-09T20:15:30.400Z",
     "updatedAt": "2026-06-09T22:45:50.100Z"
+  },
+  {
+    "id": "1781777319954",
+    "title": "Learn raw Node.js",
+    "content": "I built a notes API without Express",
+    "createdAt": "2026-06-18T10:08:39.954Z",
+    "updatedAt": "2026-06-18T10:08:39.954Z"
   }
 ]

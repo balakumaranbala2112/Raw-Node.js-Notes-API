@@ -3,7 +3,6 @@ const http = require("node:http");
 const sendJson = require("./utils/sendJson");
 const runMiddlewares = require("./utils/runMiddlewares");
 const createHttpError = require("./utils/createHttpError");
-const { getNotes, saveNotes } = require("./utils/notesDb");
 
 const logger = require("./middleware/logger");
 const security = require("./middleware/security");
@@ -30,53 +29,6 @@ async function routeHandler(req, res) {
     return sendJson(res, 200, {
       success: true,
       status: "OK",
-    });
-  }
-
-  if (method === "POST" && pathname === "/echo") {
-    return sendJson(res, 200, {
-      success: true,
-      message: "Body received successfully",
-      data: req.body,
-    });
-  }
-
-  if (method === "GET" && pathname === "/debug/notes") {
-    const notes = await getNotes();
-
-    return sendJson(res, 200, {
-      success: true,
-      message: "Notes read successfully",
-      data: notes,
-    });
-  }
-
-  if (method === "GET" && pathname === "/debug/seed-notes") {
-    const sampleNotes = [
-      {
-        id: "1",
-        title: "Learn raw Node.js",
-        content: "Today I connected notesDb helpers.",
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      },
-    ];
-
-    await saveNotes(sampleNotes);
-
-    return sendJson(res, 200, {
-      success: true,
-      message: "Sample notes saved successfully",
-      data: sampleNotes,
-    });
-  }
-
-  if (method === "GET" && pathname === "/debug/reset-notes") {
-    await saveNotes([]);
-
-    return sendJson(res, 200, {
-      success: true,
-      message: "Notes reset successfully",
     });
   }
 
