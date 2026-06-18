@@ -117,9 +117,34 @@ async function updateNote(req, res) {
   });
 }
 
+async function deleteNote(req, res) {
+  const noteId = req.params.id;
+
+  const notes = await getNotes();
+
+  const noteIndex = notes.findIndex((note) => note.id === noteId);
+
+  if (noteIndex === -1) {
+    throw createHttpError(404, "Note not Found");
+  }
+
+  const deletedNote = notes[noteIndex];
+
+  notes.splice(noteIndex, 1);
+
+  await saveNotes(notes);
+
+  return sendJson(res, 200, {
+    success: true,
+    message: "Note deleted successfully",
+    data: deletedNote,
+  });
+}
+
 module.exports = {
   getAllNotes,
   getNoteById,
   createNote,
   updateNote,
+  deleteNote,
 };

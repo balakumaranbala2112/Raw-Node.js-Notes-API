@@ -1,3 +1,65 @@
 [
-  null
+  {
+    "id": "1",
+    "title": "Learn raw Node.js",
+    "content": "Today I connected notesDb helpers.",
+    "createdAt": "2026-06-18T09:41:34.933Z",
+    "updatedAt": "2026-06-18T09:41:34.933Z"
+  },
+  {
+    "id": "2",
+    "title": "Understand Express Middleware",
+    "content": "Wrote a custom logger middleware to track incoming API requests and response times.",
+    "createdAt": "2026-06-17T14:20:10.120Z",
+    "updatedAt": "2026-06-17T15:05:44.800Z"
+  },
+  {
+    "id": "3",
+    "title": "Setup MongoDB Atlas",
+    "content": "Created a new free-tier cluster, secured the database with a strong password, and configured network access.",
+    "createdAt": "2026-06-16T11:15:00.000Z",
+    "updatedAt": "2026-06-16T11:15:00.000Z"
+  },
+  {
+    "id": "4",
+    "title": "Implement JWT Authentication",
+    "content": "Added login and register routes. Successfully generating and verifying JSON Web Tokens for protected endpoints.",
+    "createdAt": "2026-06-15T09:30:22.500Z",
+    "updatedAt": "2026-06-16T10:12:33.450Z"
+  },
+  {
+    "id": "5",
+    "title": "Deep Dive into the Event Loop",
+    "content": "Studied the different phases of the Node.js event loop. Clarified the difference between setImmediate and setTimeout.",
+    "createdAt": "2026-06-14T18:45:12.999Z",
+    "updatedAt": "2026-06-14T18:45:12.999Z"
+  },
+  {
+    "id": "6",
+    "title": "Refactor Project Structure",
+    "content": "Moved controllers, routes, and models into separate directories for better modularity and separation of concerns.",
+    "createdAt": "2026-06-13T10:05:55.100Z",
+    "updatedAt": "2026-06-13T12:30:00.000Z"
+  },
+  {
+    "id": "8",
+    "title": "Dockerize the Application",
+    "content": "Created a multi-stage Dockerfile and a docker-compose.yml file to easily spin up the app and database locally.",
+    "createdAt": "2026-06-11T08:22:11.000Z",
+    "updatedAt": "2026-06-11T08:22:11.000Z"
+  },
+  {
+    "id": "9",
+    "title": "Review React Hooks",
+    "content": "Practiced using useEffect and useState in a small sandbox frontend project to consume the new Node.js APIs.",
+    "createdAt": "2026-06-10T13:40:05.678Z",
+    "updatedAt": "2026-06-10T14:00:20.901Z"
+  },
+  {
+    "id": "10",
+    "title": "Deploy to VPS",
+    "content": "Set up Nginx as a reverse proxy, installed SSL certificates with Certbot, and used PM2 to keep the Node process running continuously.",
+    "createdAt": "2026-06-09T20:15:30.400Z",
+    "updatedAt": "2026-06-09T22:45:50.100Z"
+  }
 ]

@@ -1,8 +1,9 @@
 const {
   getAllNotes,
-  getNoteByID,
+  getNoteById,
   createNote,
   updateNote,
+  deleteNote,
 } = require("../controllers/notes.controller");
 
 async function notesRoutes(req, res) {
@@ -30,7 +31,7 @@ async function notesRoutes(req, res) {
       id: pathParts[2],
     };
 
-    await getNoteByID(req, res);
+    await getNoteById(req, res);
     return true;
   }
 
@@ -47,6 +48,21 @@ async function notesRoutes(req, res) {
     await updateNote(req, res);
     return true;
   }
+
+  if (
+    method === "DELETE" &&
+    pathParts[1] === "notes" &&
+    pathParts[2] &&
+    pathParts.length === 3
+  ) {
+    req.params = {
+      id: pathParts[2],
+    };
+
+    await deleteNote(req, res);
+    return true;
+  }
+
   return false;
 }
 
