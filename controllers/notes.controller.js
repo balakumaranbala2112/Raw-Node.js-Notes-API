@@ -13,7 +13,7 @@ async function getAllNotes(req, res) {
   });
 }
 
-async function getNoteByID(req, res) {
+async function getNoteById(req, res) {
   const noteId = req.params.id;
 
   const notes = await getNotes();
@@ -48,7 +48,7 @@ async function createNote(req, res) {
     throw createHttpError(400, "Validation failed", errors);
   }
 
-  const now = new Date().toString();
+  const now = new Date().toISOString();
 
   const newNote = {
     id: Date.now().toString(),
@@ -71,8 +71,55 @@ async function createNote(req, res) {
   });
 }
 
+async function updateNote(req, res) {
+  const noteId = req.params.id;
+  const { title, content } = req.body;
+
+  const errors = [];
+
+  if (!title || typeof title !== "string" || title.trim() === "") {
+    errors.push("Title is required and must be a non-empty string");
+  }
+
+  if (!content || typeof content !== "string" || content.trim() === "") {
+    errors.push("Content is required and must be a non-empty string");
+  }
+
+  if (errors.length > 0) {
+    throw createHttpError(400, "Validation failed", errors);
+  }
+
+  const notes = await getNotes();
+
+  const noteIndex = notes.findIndex((note) => note.id === noteId);
+
+  if (noteIndex === -1) {
+    throw createHttpError(404, "Note not found");
+  }
+
+  const existingNote = notes[noteIndex];
+
+  const updatedNote = {
+    ...existingNote,
+    title: title.trim(),
+    content: content.trim(),
+    updatedAt: new Date().toISOString(),
+  };
+
+  notes[noteIndex] = updatedNote;
+
+  await saveNotes(notes);
+
+  return sendJson(res, 200, {
+    success: true,
+    message: "Note updated successfully",
+    data: updatedNote,
+  });
+}
+
 module.exports = {
   getAllNotes,
-  getNoteByID,
+  getNoteById,
   createNote,
+  updateNote,
 };

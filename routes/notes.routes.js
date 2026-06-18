@@ -2,6 +2,7 @@ const {
   getAllNotes,
   getNoteByID,
   createNote,
+  updateNote,
 } = require("../controllers/notes.controller");
 
 async function notesRoutes(req, res) {
@@ -33,6 +34,19 @@ async function notesRoutes(req, res) {
     return true;
   }
 
+  if (
+    method === "PUT" &&
+    pathParts[1] === "notes" &&
+    pathParts[2] &&
+    pathParts.length === 3
+  ) {
+    req.params = {
+      id: pathParts[2],
+    };
+
+    await updateNote(req, res);
+    return true;
+  }
   return false;
 }
 
