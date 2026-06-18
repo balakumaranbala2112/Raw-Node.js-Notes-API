@@ -1,60 +1,54 @@
 const http = require("node:http");
-const path = require("node:path");
 
 const sendJson = require("./utils/sendJson");
-const readData = require("./utils/readData");
-const writeData = require("./utils/writeData");
+const runMiddlewares = require("./utils/runMiddlewares");
+const createHttpError = require("./utils/createHttpError");
+
+const logger = require("./middleware/logger");
+const security = require("./middleware/security");
+const urlParser = require("./middleware/urlParser");
+const jsonBody = require("./middleware/jsonBody");
+const errorHandler = require("./middleware/errorHandler");
 
 const PORT = 3000;
 
-const notesFilePath = path.join(__dirname, "data", "notes.json");
-
-const server = http.createServer(async (req, res) => {
-  const requestUrl = new URL(req.url, `http://${req.headers.host}`);
-
+function routeHandler(req, res) {
   const method = req.method;
-  const pathname = requestUrl.pathname;
+  const pathname = req.pathname;
 
   if (method === "GET" && pathname === "/") {
     return sendJson(res, 200, {
+      success: true,
       message: "Raw Node Notes API is running",
     });
   }
 
   if (method === "GET" && pathname === "/health") {
     return sendJson(res, 200, {
+      success: true,
       status: "OK",
     });
   }
 
-  if (method === "GET" && pathname === "/test-read") {
-    const notes = await readData(notesFilePath);
-
+  if (method === "POST" && pathname === "/echo") {
     return sendJson(res, 200, {
-      message: "Notes file read successfully",
-      data: notes,
+      success: true,
+      message: "Body received successfully",
+      data: req.body,
     });
   }
 
-  if (method === "GET" && pathname === "/test-write") {
-    const sampleNotes = [
-      {
-        id: "1",
-        title: "Test note",
-        content: "This note was written using writeData utility",
-      },
-    ];
-
-    await writeData(notesFilePath, sampleNotes);
-
-    return sendJson(res, 200, {
-      message: "Notes file written successfully",
-    });
+  if (method === "GET" && pathname === "/crash") {
+    throw new Error("Testing global error handler");
   }
 
-  return sendJson(res, 404, {
-    message: "Route not found",
-  });
+  throw createHttpError(404, "Route not found");
+}
+
+const middlewares = [logger, security, urlParser, jsonBody];
+
+const server = http.createServer((req, res) => {
+  runMiddlewares(req, res, middlewares, routeHandler, errorHandler);
 });
 
 server.listen(PORT, () => {
