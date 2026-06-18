@@ -1,4 +1,8 @@
-const { getAllNotes, getNoteByID } = require("../controllers/notes.controller");
+const {
+  getAllNotes,
+  getNoteByID,
+  createNote,
+} = require("../controllers/notes.controller");
 
 async function notesRoutes(req, res) {
   const method = req.method;
@@ -7,6 +11,11 @@ async function notesRoutes(req, res) {
 
   if (method === "GET" && pathname === "/notes") {
     await getAllNotes(req, res);
+    return true;
+  }
+
+  if (method === "POST" && pathname === "/notes") {
+    await createNote(req, res);
     return true;
   }
 
