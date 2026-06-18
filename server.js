@@ -11,6 +11,8 @@ const urlParser = require("./middleware/urlParser");
 const jsonBody = require("./middleware/jsonBody");
 const errorHandler = require("./middleware/errorHandler");
 
+const notesRoutes = require("./routes/notes.routes");
+
 const PORT = 3000;
 
 async function routeHandler(req, res) {
@@ -76,6 +78,12 @@ async function routeHandler(req, res) {
       success: true,
       message: "Notes reset successfully",
     });
+  }
+
+  const isNotesRouteHandled = await notesRoutes(req, res);
+
+  if (isNotesRouteHandled) {
+    return;
   }
 
   if (method === "GET" && pathname === "/crash") {

@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "id": "1",
+    "title": "Learn raw Node.js",
+    "content": "Today I connected notesDb helpers.",
+    "createdAt": "2026-06-18T08:08:54.014Z",
+    "updatedAt": "2026-06-18T08:08:54.014Z"
+  }
+]
